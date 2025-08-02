@@ -2,166 +2,189 @@
 
 A Django web application for sharing news, sports updates, and event information.
 
+## Project Overview
+
+News and Media Portal is a Django-based web application designed to provide a platform for publishing and managing news articles, sports updates, and events. The application features a responsive design, user authentication system, and email verification for account security.
+
 ## Features
 
-- Responsive design using Bootstrap 5
-- Different sections for News, Sports, and Events
-- Feature details page for each item
-- Admin interface for managing content
+- **Multiple Content Sections**:
+  - News articles with categories
+  - Sports updates with team and player information
+  - Event listings with date, location, and registration
 
-## Deployment on Railway
+- **User Management**:
+  - User registration with email verification
+  - Profile management
+  - Role-based access control
 
-This project is configured for deployment on Railway.
+- **Responsive Design**:
+  - Bootstrap 5 framework
+  - Mobile-friendly interface
+  - Customized UI elements
 
-### Prerequisites
+- **Admin Dashboard**:
+  - Content management system
+  - User management interface
+  - Site configuration options
 
-- A Railway account
-- Railway CLI (optional for local deployment)
+## Environment Setup
 
-### Deploying to Railway
+### Environment Variables
 
-1. Fork or clone this repository
-2. Connect your GitHub repository to Railway
-3. Railway will automatically detect the configuration in `railway.json`
-4. Set the required environment variables in the Railway dashboard:
-   - `SECRET_KEY`: Your Django secret key
-   - `DEBUG`: Set to 'False' for production
-   - `ALLOWED_HOSTS`: Your Railway domain and any other domains
-   - `CSRF_TRUSTED_ORIGINS`: Your Railway domain and any other domains (with https:// prefix)
-   - `DATABASE_URL`: Will be automatically set by Railway if you add a PostgreSQL database
+Create a `.env` file in the project root with the following variables:
 
-### Local Development Build
+```properties
+# Environment Configuration
+# Set to True for development, False for production
+DEBUG=True
+ENVIRONMENT=development
 
-Run the build script:
+# Email Configuration
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=your-gmail@gmail.com
+EMAIL_HOST_PASSWORD=your-app-password
+DEFAULT_FROM_EMAIL=your-gmail@gmail.com
 
-```bash
-# On Linux/Mac
-chmod +x build.sh
-./build.sh
+# Domain Settings
+ALLOWED_HOSTS=127.0.0.1,localhost,0.0.0.0,your-production-domain.com
 
-# On Windows
-build.bat
+# CSRF Trusted Origins
+CSRF_TRUSTED_ORIGINS=https://your-production-domain.com
 ```
 
-### Manual Deployment
+### Email Setup Instructions
 
-If you want to deploy manually:
+To set up email for verification and notifications:
 
-```bash
-# Install Railway CLI
-npm i -g @railway/cli
-
-# Login to Railway
-railway login
-
-# Link your project
-railway link
-
-# Deploy your app
-railway up
-```
-
-## UI Features
-
-- Custom styled UI
-- Enhanced Events section with:
-  - Modern UI elements and animations
-  - Social sharing capabilities for all events
-  - SEO optimization with meta tags and sitemaps
-  - Structured data with JSON-LD for improved search visibility
-  - Interactive countdown timers for upcoming events
-  - Reusable component architecture
-  - Adaptive layouts for mobile and desktop
-  - Google Calendar integration
-
-## Templates
-
-The application uses the following templates:
-
-- **base.html**: The main template that serves as the foundation for all pages
-- **Home/home.html**: The landing page showing all active features by section
-- **Home/feature_detail.html**: Detailed view for a specific feature
-- **404.html**: Custom 404 error page
-- **500.html**: Custom 500 error page
-
-## Models
-
-The main model is `LandingFeature` which stores content for the landing page:
-
-- Title and description
-- Optional image and link
-- Section (News, Sports, or Events)
-- Priority for ordering
-- Active status
+1. Go to https://myaccount.google.com/security
+2. Enable 2-Factor Authentication if not already enabled
+3. Under "Signing in to Google", click "App passwords"
+4. Select "Mail" and "Windows Computer"
+5. Click "Generate" and copy the 16-character password
+6. Add the password to your `.env` file
 
 ## Running the Project
 
-1. Install dependencies: `pip install -r requirements.txt`
-2. Run migrations: `python manage.py migrate`
-3. Create a superuser: `python manage.py createsuperuser`
-4. Run the development server: `python manage.py runserver`
-5. Access the admin at: `http://127.0.0.1:8000/admin/`
-6. Access the homepage at: `http://127.0.0.1:8000/`
-7. Access the events page at: `http://127.0.0.1:8000/events/`
+### Development Mode
 
-## Deployment
+1. Clone the repository:
+   ```
+   git clone https://github.com/your-username/news-and-media-beta.git
+   cd news-and-media-beta
+   ```
 
-The application is ready for deployment with:
+2. Create and activate a virtual environment:
+   ```
+   python -m venv venv
+   venv\Scripts\activate
+   ```
 
-- Configured allowed hosts for external access
-- SEO-optimized content with meta tags
-- XML sitemap for search engine indexing
-- Social sharing capabilities for better reach
-- Structured data with JSON-LD for improved search visibility
+3. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
 
-When deploying:
+4. Configure your `.env` file with development settings:
+   ```
+   DEBUG=True
+   ENVIRONMENT=development
+   ```
 
-1. Set `DEBUG = False` in production
-2. Update `ALLOWED_HOSTS` with your domain name
-3. Configure a proper database backend (PostgreSQL recommended)
-4. Set up static files serving with a CDN or web server
-5. Ensure all static files are collected: `python manage.py collectstatic`
-6. Set up proper HTTPS to ensure social sharing works correctly
-7. Register your sitemap with search engines: `https://yourdomain.com/events/sitemap.xml`
+5. Run migrations:
+   ```
+   python manage.py migrate
+   ```
 
-## Enhanced Events Module
+6. Create a superuser:
+   ```
+   python manage.py createsuperuser
+   ```
 
-The Events section has been fully enhanced with modern UI and features:
+7. Run the development server:
+   ```
+   python manage.py runserver
+   ```
 
-1. **Visual Improvements:**
-   - Responsive design with modern UI elements
-   - Animated elements using animate.css
-   - Interactive countdown timers for upcoming events
+8. Access the site at: http://127.0.0.1:8000
 
-2. **SEO & Discoverability:**
-   - Proper meta tags for SEO
-   - JSON-LD structured data for rich search results
-   - XML sitemap for search engine indexing
-   - Social sharing capabilities
+### Production Mode
 
-3. **User Experience:**
-   - Filter sidebar for easy event navigation
-   - Reusable component architecture
-   - Improved registration flow
-   - Google Calendar integration
+1. Configure your `.env` file with production settings:
+   ```
+   DEBUG=False
+   ENVIRONMENT=production
+   ```
 
-For detailed documentation on the Events module enhancements, see the [Events Enhancement Documentation](Events/EVENTS_ENHANCEMENT_DOCS.md).
+2. Collect static files:
+   ```
+   python manage.py collectstatic
+   ```
+
+3. Run the production server using Waitress:
+   ```
+   python waitress_server.py
+   ```
+   
+   This will start a production-ready server at http://localhost:8000
+
+4. For deployment behind a proxy (recommended):
+   - Configure Nginx or Apache as a reverse proxy
+   - Set up SSL/TLS certificates for HTTPS
+   - Configure proper caching headers
 
 ## Troubleshooting
 
 ### CSRF Verification Failed
 
-If you encounter a CSRF verification error with a message like "Origin checking failed":
+If you encounter CSRF verification errors:
 
-1. Ensure your domain is added to the `CSRF_TRUSTED_ORIGINS` list in settings.py or as an environment variable
-2. Make sure you're using `https://` prefixes for all domains in the CSRF_TRUSTED_ORIGINS list
-3. Verify that your forms include the `{% csrf_token %}` template tag
-4. If using AJAX requests, ensure proper CSRF headers are being sent
+1. Check your `.env` file has properly configured `CSRF_TRUSTED_ORIGINS`:
+   ```
+   CSRF_TRUSTED_ORIGINS=https://your-domain.com,https://*.your-domain.com
+   ```
 
-### Database Connection Issues
+2. Ensure all URLs in `CSRF_TRUSTED_ORIGINS` start with `https://` or `http://`
 
-If you have trouble connecting to the database:
+3. If using a custom domain, make sure it's included in both:
+   - `ALLOWED_HOSTS`
+   - `CSRF_TRUSTED_ORIGINS`
 
-1. Verify the `DATABASE_URL` environment variable is correctly set in Railway
-2. Check that the PostgreSQL instance is properly provisioned and running
-3. Ensure your IP is allowed if there are any connection restrictions
+4. For local development behind a proxy, add your local URL:
+   ```
+   CSRF_TRUSTED_ORIGINS=https://your-domain.com,http://localhost:8000
+   ```
+
+5. Verify your templates include the `{% csrf_token %}` tag in all forms
+
+### Static Files Issues
+
+If static files aren't loading correctly:
+
+1. Run `python manage.py collectstatic`
+2. Check that the `STATIC_ROOT` directory exists
+3. Ensure `STATICFILES_STORAGE` is properly configured in `settings.py`
+4. In production, configure your web server to serve static files
+
+### Email Verification Problems
+
+If email verification isn't working:
+
+1. Test your email configuration with the provided script:
+   ```
+   python test_email_config.py
+   ```
+
+2. Check that your Google account has 2-Factor Authentication enabled and you're using App Passwords
+3. Verify email settings in your `.env` file
+4. Check application logs for detailed error messages
+
+## Additional Information
+
+- The application uses Django 5.2.4
+- Built with Python 3.13
+- Frontend uses Bootstrap 5
+- Security features include CSRF protection and secure email verification
